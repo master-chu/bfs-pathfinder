@@ -1,6 +1,33 @@
-# Getting Started with Create React App
+# BFS Pathfinder Visualization
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```bash
+npm start
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+![Screenshot](/screenshot.png?raw=true "Screenshot")
+
+
+## Explanation of algorithm
+This algorithm finds the shortest path between two points on a grid. 
+
+* It avoids obstructions (denoted by a `1` in the grid)
+* It cannot move diagonally; it can only look up, down, left, and right
+* For two equidistant paths, it will prefer to start moving in the direction of the destination; this is to make the trajectory look more natural, since it will be used by enemies pursuing the player. 
+### Steps
+The algorithm keeps track of two accumulators:
+* The history of visited tiles; this ensures we only search a tile once, and prevents cyclic loops.
+* A queue of tiles to be searched; this is what allows us to search in a breadth-first manner. By queueing tiles in the order we discover them, we ensure that we never search too far down any particular path until we've searched the local surrouding area.
+    * Additionally, each tile in the queue tracks its own history of which tiles were traversed to reach it. This allows us to return the full path back to the start point once we discover the end tile.
+
+The steps are as follows:
+* Check the tile at the front of the queue
+    * If this is the end tile, we're done. The path of visted tiles we've accumulated is our solution.
+* Look up, down, left, and right at all 4 neighbor tiles
+* For each neighbor:
+    * If the space is traversible, and we haven't visited it yet, then add it to the end of our queue
+* Repeat
 
 ## Available Scripts
 
@@ -8,38 +35,13 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
 ## Learn More
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
