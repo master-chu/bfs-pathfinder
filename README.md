@@ -1,6 +1,10 @@
 # BFS Pathfinder Visualization
 
 ```bash
+# First time
+npm i
+
+# Start app
 npm start
 ```
 
